@@ -5,13 +5,15 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "lunetas"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Rack micro framework intended for APIs}
+    gem.description = %Q{This is a micro framework based in Rack, inspired in Sinatra, camping and many others. The intention is to have fast responses for simple API calls. The base unit of this framework are the classes, which registers a regular expression that will match this resource.}
     gem.email = "iv@nvald.es"
     gem.homepage = "http://github.com/ivanvc/lunetas"
     gem.authors = ["Iván Valdés (@ivanvc)"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "yard", ">= 0"
+    gem.add_development_dependency "shotgun", ">= 0"
+    gem.add_dependency "rack", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
