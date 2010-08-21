@@ -1,4 +1,4 @@
-require '../lib/lunetas'
+require 'lunetas'
 
 class Testing
   include Lunetas::Candy
