@@ -4,6 +4,10 @@ class Testing
   include Lunetas::Candy
   matches '/hello/(\w+)', :name
 
+  def before
+    @name = @name.capitalize
+  end
+
   def get
     "Hello #{@name}! #{params[:chunky]}"
   end
