@@ -6,11 +6,11 @@ module Lunetas::Bag
   # Registers new classes to a given regular expression. It should be called from
   # a Luneta.
   # @param [Regexp] regex the regular expression for this Luneta Class.
-  # @param [Luneta] luneta the class that owns the regular expresion.
-  def self.register(regex, luneta)
-    # TODO: Log: "Registering #{regex.inspect} #{luneta.inspect}"
-    @@lunetas ||= {}
-    @@lunetas[regex] = luneta
+  # @param [Luneta] candy the class that owns the regular expresion.
+  def self.register(regex, candy)
+    # TODO: Log: "Registering #{regex.inspect} #{candy.inspect}"
+    @@candies ||= {}
+    @@candies[regex] = candy
   end
 
   # Rack's call method. Will be called with the env, from rack. If it matches
@@ -21,13 +21,13 @@ module Lunetas::Bag
   # @return [Array] the rack response.
   def self.call(env)
     @url_match = nil
-    match_regex = @@lunetas.keys.find do |regex| 
+    match_regex = @@candies.keys.find do |regex| 
       @url_match = env['PATH_INFO'].match(regex)
     end
     unless match_regex
       return [404, {"Content-Type" => "text/html", "X-Cascade" => "pass"}, ["Not Found"]]
     end
-    luneta = @@lunetas[match_regex].new(env, @url_match.to_a)
-    luneta.send(:process)
+    candy = @@candies[match_regex].new(env, @url_match.to_a)
+    candy.bite
   end
 end
