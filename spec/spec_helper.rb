@@ -22,7 +22,7 @@ class TestClass
   include Lunetas::Candy
   matches '/just_a_test'
   def get
-    ''
+    'Chunky Bacon'
   end
 end
 

@@ -1,4 +1,4 @@
-module ApiV1::Error
+module Lunetas::Error
   class BaseError < StandardError
     def to_json
       {'error' => message}.to_json
@@ -9,6 +9,9 @@ module ApiV1::Error
     def message
       "Error"
     end 
+    def to_s
+      message
+    end
   end 
   class AuthenticationError < BaseError
     def code

@@ -76,7 +76,9 @@ module Lunetas::Candy
         when 'OPTIONS'
           options
         else
-          other_verb(@req.request_method)
+          response = other_verb(@req.request_method)
+          raise Lunetas::Error::APIError unless response
+          response
         end
       end
 
@@ -95,7 +97,7 @@ module Lunetas::Candy
       # end
 
       def response(object, code = 200)
-        [code, {'Content-Type' => "application/json"}, [object]]
+        [code, {'Content-Type' => "application/json"}, [object.to_s]]
       end
 
       # The following methods should be overwritten by the including class

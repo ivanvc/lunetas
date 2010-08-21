@@ -55,13 +55,25 @@ describe Lunetas::Candy::InstanceMethods do
       @instance.bite
     end
 
+    it 'should render the given response' do
+      @instance.bite.last.should == ['Chunky Bacon']
+    end
+
     %w{post put delete head trace options}.each do |verb|
-      it 'should call to the post method if called with POST' do
+      it 'should call to the #{verb} method if called with #{verb.upcase}' do
         mock_env = mock_env('/just_a_test')
         mock_env['REQUEST_METHOD'] = verb.upcase
         @instance = TestClass.new(mock_env, ['/just_a_test'])
         @instance.should_receive(verb)
         @instance.bite
+      end
+
+      it 'should return an API Error to #{verb.upcase} if no defined' do
+        mock_env = mock_env('/just_a_test')
+        mock_env['REQUEST_METHOD'] = verb.upcase
+        @instance = TestClass.new(mock_env, ['/just_a_test'])
+        @instance.should_receive(verb).and_raise(Lunetas::Error::APIError)
+        @instance.bite.last.should == ["API route error"]
       end
     end
 
@@ -72,7 +84,23 @@ describe Lunetas::Candy::InstanceMethods do
       @instance.should_receive(:other_verb).with('TEAPOT')
       @instance.bite
     end
-     
+
+    it 'should call to other_verb with the passed method and return the response if method handled' do
+      mock_env = mock_env('/just_a_test')
+      mock_env['REQUEST_METHOD'] = 'TEAPOT'
+      @instance = TestClass.new(mock_env, ['/just_a_test'])
+      @instance.should_receive(:other_verb).with('TEAPOT').and_return('TEAPOT YEAH')
+      @instance.bite.last.should == ['TEAPOT YEAH']
+    end
+
+    it 'should call to other_verb with the passed method and return error if method not handled' do
+      mock_env = mock_env('/just_a_test')
+      mock_env['REQUEST_METHOD'] = 'TEAPOT'
+      @instance = TestClass.new(mock_env, ['/just_a_test'])
+      @instance.should_receive(:other_verb).with('TEAPOT')
+      @instance.bite.last.should == ['API route error']
+    end
+    
   end
 
 end
