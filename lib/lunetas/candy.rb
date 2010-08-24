@@ -97,7 +97,7 @@ module Lunetas::Candy
       # end
 
       def response(object, code = 200)
-        [code, {'Content-Type' => "application/json"}, [object.to_s]]
+        [code, {'Content-Type' => self.class.content_type}, [object.to_s]]
       end
 
       # The following methods should be overwritten by the including class
@@ -140,6 +140,7 @@ module Lunetas::Candy
   
   module ClassMethods
     attr_reader :_url_params
+    attr_reader :content_type
 
     # Support to be runned as a Rails Metal. 
     # @param [Hash] env the Rack env.
@@ -170,12 +171,19 @@ module Lunetas::Candy
       # @param [Array<Symbol, String>] url_params the instance variables that will
       #   be set for the captures from the regex.
       def matches(regex, *url_params)
+        @content_type = 'text/html'
         @_regex = regex
         unless Regexp === @_regex
           @_regex = Regexp.new(@_regex)
         end
         @_url_params = url_params
         Lunetas::Bag.register(@_regex, self)
+      end
+
+      # Sets the Content Type for this URL. Defaults to text/html.
+      # @param [String] content_type the ContentType for the response.
+      def set_content_type(content_type)
+        @content_type = content_type
       end
   end
 

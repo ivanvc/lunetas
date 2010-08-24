@@ -59,6 +59,15 @@ describe Lunetas::Candy::InstanceMethods do
       @instance.bite.last.should == ['Chunky Bacon']
     end
 
+    it 'should have the default ContentType if not set' do
+      @instance.bite[1]["Content-Type"].should == "text/html"
+    end
+
+    it 'should set another ContentType' do
+      TestClass.send(:set_content_type, 'text/plain')
+      @instance.bite[1]["Content-Type"].should == "text/plain"
+    end
+
     %w{post put delete head trace options}.each do |verb|
       it 'should call to the #{verb} method if called with #{verb.upcase}' do
         mock_env = mock_env('/just_a_test')
