@@ -50,6 +50,11 @@ describe Lunetas::Candy::InstanceMethods do
       @instance.bite
     end
 
+    it 'should answer with a 500 if raised a runtime error' do
+      @instance.should_receive(:before).and_raise(StandardError)
+      @instance.bite.first.should == 500
+    end
+
     it 'should call to the get method' do
       @instance.should_receive(:get)
       @instance.bite

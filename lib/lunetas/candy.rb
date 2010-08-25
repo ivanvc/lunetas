@@ -55,7 +55,13 @@ module Lunetas::Candy
       before
       response(handle_call)
     rescue Exception => e
-      response(e, e.code)
+      code, error = 500, e
+      if Lunetas::Error::BaseError === e
+        code = e.code
+      elsif development?
+        error = "Error: #{e.message}\nBacktrace: #{e.backtrace.join('\n')}"
+      end
+      response(error, code)
     end
 
     private
@@ -96,6 +102,10 @@ module Lunetas::Candy
 
       def session
         @req.session
+      end
+
+      def development?
+        ENV['RAILS_ENV'] == 'development' || ENV['RACK_ENV'].nil? || ENV['RACK_ENV'] == 'development'
       end
 
       # TODO: Polish this

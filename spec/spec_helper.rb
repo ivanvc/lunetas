@@ -26,7 +26,7 @@ class TestClass
   end
 end
 
-class TestException < StandardError
+class TestException < Lunetas::Error::BaseError
   def code
     400
   end
