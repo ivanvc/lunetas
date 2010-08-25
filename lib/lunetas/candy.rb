@@ -149,7 +149,7 @@ module Lunetas::Candy
       url_match = env['PATH_INFO'].match(@_regex)
       if url_match
         call = new(env, url_match.to_a)
-        call.process
+        call.bite
       else
         [404, {"Content-Type" => "text/html", "X-Cascade" => "pass"}, ["Not Found"]]
       end
