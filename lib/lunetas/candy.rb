@@ -90,6 +90,14 @@ module Lunetas::Candy
         @req.params
       end
 
+      def request
+        @req
+      end
+
+      def session
+        @req.session
+      end
+
       # TODO: Polish this
       # def authenticate!
       #   @current_user = User.where(:single_access_token => token).first
@@ -148,8 +156,8 @@ module Lunetas::Candy
     def call(env)
       url_match = env['PATH_INFO'].match(@_regex)
       if url_match
-        call = new(env, url_match.to_a)
-        call.bite
+        candy = new(env, url_match.to_a)
+        candy.bite
       else
         [404, {"Content-Type" => "text/html", "X-Cascade" => "pass"}, ["Not Found"]]
       end
