@@ -26,6 +26,14 @@ module Lunetas::Candy::RequestWrapper
       @req.session
     end
 
+    # Redirects to some location.
+    # @param [String] target the location to redirect to.
+    # @param [Fixnum] status the redirect status.
+    # @return [nil]
+    def redirect(target, status = 302)
+      @lunetas_redirect = [status, {'Content-Type' => 'text/plain', 'Location' => target}, []]
+    end
+
     # Is lunetas running in development?
     # @return [true, false]
     def development?

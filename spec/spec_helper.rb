@@ -24,6 +24,11 @@ class TestClass
   def get
     'Chunky Bacon'
   end
+  def other_verb(verb)
+    if verb == 'REDIRECT'
+      redirect 'http://example.com'
+    end
+  end
 end
 
 class TestException < Lunetas::Error::BaseError

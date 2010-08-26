@@ -60,7 +60,11 @@ module Lunetas::Candy::ResponseHandler
       # @param [Fixnum] code the response code.
       # @return [Array] a Rack::Request response.
       def response(object, code = 200)
-        [code, {'Content-Type' => self.class.lunetas_content_type}, [object.to_s]]
+        if @lunetas_redirect && @lunetas_redirect.is_a?(Array)
+          @lunetas_redirect
+        else
+          [code, {'Content-Type' => self.class.lunetas_content_type}, [object.to_s]]
+        end
       end
   end
   

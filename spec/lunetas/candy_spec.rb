@@ -73,6 +73,14 @@ describe Lunetas::Candy do
       @instance.bite[1]["Content-Type"].should == "text/plain"
     end
 
+    it 'should be able to redirect' do
+      mock_env = mock_env('/just_a_test')
+      mock_env['REQUEST_METHOD'] = 'REDIRECT'
+      @instance = TestClass.new(mock_env, ['/just_a_test'])
+      @instance.bite[1].keys.should include('Location')
+      @instance.bite[1].values.should include('http://example.com')
+    end
+
     %w{post put delete head trace options}.each do |verb|
       it 'should call to the #{verb} method if called with #{verb.upcase}' do
         mock_env = mock_env('/just_a_test')
