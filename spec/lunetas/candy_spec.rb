@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Lunetas::Candy::InstanceMethods do
+describe Lunetas::Candy do
   describe '.initialize' do
     before(:each) do
       @instance = TestClass.new(mock_env('/just_a_test'), ['/just_a_test', 'a', 'b'])
