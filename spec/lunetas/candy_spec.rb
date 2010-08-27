@@ -73,6 +73,27 @@ describe Lunetas::Candy do
       @instance.bite[1]["Content-Type"].should == "text/plain"
     end
 
+    it 'should be able to change the ContentType per instance' do
+      @instance.set_content_type 'application/json'
+      @instance.bite[1]["Content-Type"].should == 'application/json'
+    end
+
+    it 'should be able to set a custom Header' do
+      @instance.set_header 'Chunky', 'bacon'
+      @instance.bite[1]['Chunky'].should == 'bacon'
+    end
+
+    it 'should be able to add a custom Header with a symbol' do
+      @instance.set_header :Chunky, 'bacon'
+      @instance.bite[1]['Chunky'].should == 'bacon'
+    end
+
+    it 'should keep the last Header set' do
+      @instance.set_header :Chunky, 'bacon'
+      @instance.set_header 'Chunky', 'b4c0n'
+      @instance.bite[1]['Chunky'].should == 'b4c0n'
+    end
+
     it 'should be able to redirect' do
       mock_env = mock_env('/just_a_test')
       mock_env['REQUEST_METHOD'] = 'REDIRECT'

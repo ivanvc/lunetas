@@ -31,7 +31,8 @@ module Lunetas::Candy::RequestWrapper
     # @param [Fixnum] status the redirect status.
     # @return [nil]
     def redirect(target, status = 302)
-      @lunetas_redirect = [status, {'Content-Type' => 'text/plain', 'Location' => target}, []]
+      set_header 'Location', target
+      @lunetas_redirect = [302, "Moved to #{target}"]
     end
 
     # Is lunetas running in development?
@@ -42,6 +43,22 @@ module Lunetas::Candy::RequestWrapper
       else
         ENV['RACK_ENV'].nil? || ENV['RACK_ENV'] == 'development'
       end
+    end
+
+    # Sets the ContentType for this instance. This overrides the class
+    # ContentType.
+    # @param [String] content_type the ContentType.
+    # @return [nil]
+    def set_content_type(content_type)
+      set_header 'Content-Type', content_type
+    end
+
+    # Sets a Header for this instance.
+    # @param [String, Symbol] header the Header to be set.
+    # @param [String] value the value of the Header.
+    # @return [nil]
+    def set_header(header, value)
+      @lunetas_headers[header.to_s] = value
     end
   end
 end

@@ -4,6 +4,8 @@ module Lunetas::Candy::Initialization
     attr_reader :url
     # The url parameters hold by the instance.
     attr_reader :lunetas_url_instance_params
+    # Holds the current headers for the response.
+    attr_reader :lunetas_headers
 
     # The initialization of a class that includes a Candy, should be done
     # with rack environment and the url matches from its regular expression.
@@ -14,6 +16,7 @@ module Lunetas::Candy::Initialization
     #   (MatchData instance).to_a
     def initialize(env, url_matches)
       @req = Rack::Request.new(env)
+      @lunetas_headers = {}
       @lunetas_url_instance_params = url_matches
       @url = @lunetas_url_instance_params.shift
       begin

@@ -13,8 +13,8 @@ a Regular Expression. It may respond to one or many HTTP methods. These response
 defined overwritting the methods get, put, post, delete, trace, head, etc.. It can
 also handle other non-native HTTP methods, using overwritting other_verb.
 
-What does all these means? Checkout an example. (Also you may want to take a look at
-the examples folder).
+What does all these means? Checkout an example. (You can also take a look at the
+examples folder).
 
 Usage
 -----
