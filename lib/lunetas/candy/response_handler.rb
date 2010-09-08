@@ -7,20 +7,13 @@ module Lunetas::Candy::ResponseHandler
     # @return [Array] a Rack::Request response.
     def handle_call
       case @req.request_method
-      when 'GET'
-        get
-      when 'POST'
-        post
-      when 'PUT'
-        put
-      when 'DELETE'
-        delete
-      when 'HEAD'
-        head
-      when 'TRACE'
-        trace
-      when 'OPTIONS'
-        options
+      when 'GET'     then get
+      when 'POST'    then post
+      when 'PUT'     then put
+      when 'DELETE'  then delete
+      when 'HEAD'    then head
+      when 'TRACE'   then trace
+      when 'OPTIONS' then options
       else
         response = other_verb(@req.request_method)
         raise Lunetas::Error::APIError unless response
