@@ -26,7 +26,7 @@ module Lunetas::Bag
   # Gets the public directory of assets.
   # @return [String] the location, if not set public/
   def self.public_directory
-    @@public_directory ||= File.expand_path(File.basename(__FILE__) + "/public")
+    @@public_directory ||= File.expand_path("public")
   end
 
   # Rack's call method. Will be called with the env, from rack. If it matches
