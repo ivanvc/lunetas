@@ -36,5 +36,26 @@ describe Lunetas::Bag do
       @luneta_class.should_receive(:new).with(env, ['bacon/bbacon', 'bbacon'])
       Lunetas::Bag.call(env)
     end
+
+    it 'should serve an external file' do
+      Lunetas::Bag.set_public_directory "spec/support"
+      env = mock_env('/image.png')
+      response = [200, {"Content-Type" => "image/png"}, ["test\n"]]
+      Lunetas::Bag.call(env).should == response
+    end
+  end
+
+  describe 'set_public_directory' do
+    it 'should raise an exception if the directory is not found' do
+      lambda {
+        Lunetas::Bag.set_public_directory "blah"
+      }.should raise_error
+    end
+
+    it 'should change the value if the directory is found' do
+      lambda {
+        Lunetas::Bag.set_public_directory "examples"
+      }.should change(Lunetas::Bag, :public_directory)
+    end
   end
 end

@@ -25,6 +25,9 @@ running, you just need to add `run Lunetas::Bag` in your config.ru file.
 If you are going to use Lunetas behind a framework like Rails. You just need to add
 the gem, `require 'lunetas'` in your metal, and you are ready to go.
 
+Now with support for public assets, and templates. Check out the example under
+/examples/stand_alone_app, to see how it works!
+
 Examples
 --------
 

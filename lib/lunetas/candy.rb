@@ -16,6 +16,7 @@ module Lunetas::Candy
   autoload :MethodStrategy,  base_dir + 'method_strategy.rb'
   autoload :RequestWrapper,  base_dir + 'request_wrapper.rb'
   autoload :ResponseHandler, base_dir + 'response_handler.rb'
+  autoload :TemplateParsing, base_dir + 'template_parsing.rb'
 
   # @private
   def self.included(receiver)
@@ -25,5 +26,6 @@ module Lunetas::Candy
     receiver.send :include, RequestWrapper::InstanceMethods
     receiver.send :include, ResponseHandler::InstanceMethods
     receiver.send :extend,  ResponseHandler::ClassMethods
+    receiver.send :include, TemplateParsing::InstanceMethods
   end
 end

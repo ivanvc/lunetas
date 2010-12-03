@@ -39,4 +39,7 @@ module Lunetas::Error
       "API route error"
     end 
   end 
+
+  class NoSuchDirectory < StandardError
+  end
 end
