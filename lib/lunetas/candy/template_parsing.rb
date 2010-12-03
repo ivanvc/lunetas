@@ -4,8 +4,14 @@ module Lunetas::Candy::TemplateParsing
     # @param filename the file located in the templates directory.
     # @return [String] the erb parsed template.
     def erb(filename)
-      file = File.expand_path(File.basename(__FILE__) + '/templates/' +filename)
-      ERB.new(file).result
+      file = File.expand_path("templates/#{filename}.erb")
+      ERB.new(File.read(file)).result(get_binding)
     end
+
+    private
+      # @private
+      def get_binding
+        binding
+      end
   end
 end

@@ -1,6 +1,7 @@
 require 'rubygems'
 gem 'rack'
 require 'rack'
+require 'erb'
 
 module Lunetas
   base_dir = File.dirname(__FILE__) + '/lunetas/'
